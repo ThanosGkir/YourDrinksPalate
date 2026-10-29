@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YourDrinksPalate — Interactive Mobile App Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top, #1e1b2e 0%, #090a0f 100%);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: #27272a;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      background: #f59e0b;
+      margin-top: -6px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-zinc-100">
+
+  <!-- iPhone 15 Pro Mobile Frame -->
+  <div class="w-[395px] h-[844px] bg-zinc-950 rounded-[48px] border-[8px] border-zinc-800 shadow-[0_25px_70px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden relative">
+
+    <!-- Top Dynamic Island & Status Bar -->
+    <div class="pt-3 pb-2 px-6 flex items-center justify-between text-xs text-zinc-400 bg-zinc-950/90 backdrop-blur z-20">
+      <span class="font-semibold text-zinc-200">21:45</span>
+      <div class="w-24 h-5 bg-black rounded-full border border-zinc-800/80 flex items-center justify-end px-2">
+        <div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span>5G</span>
+        <div class="w-5 h-2.5 border border-zinc-400 rounded-sm p-0.5 flex items-center">
+          <div class="w-3.5 h-full bg-amber-400 rounded-xs"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="px-5 pt-2 pb-3 border-b border-zinc-800/80 bg-zinc-950/90 flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-lg">🥃</span>
+          <h1 class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent">
+            YourDrinksPalate
+          </h1>
+        </div>
+        <p id="headerSubtitle" class="text-[11px] text-zinc-400">Personal Spirit & Cocktail AI Matcher</p>
+      </div>
+      <button onclick="switchTab('dna')" class="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-semibold">
+        DNA Active
+      </button>
+    </header>
+
+    <!-- Scrollable Screen Content -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-24">
+
+      <!-- ==================== TAB 1: FLAVOR DNA ==================== -->
+      <section id="tab-dna" class="p-5 space-y-5">
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 border border-zinc-800 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] uppercase tracking-wider font-bold text-amber-400">Step 1 • Taste Vector</span>
+            <span id="dnaSummaryBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300">Smoky & Bold</span>
+          </div>
+          <h2 class="text-base font-bold text-white">Build Your Palate Profile</h2>
+          <p class="text-xs text-zinc-400 mt-0.5">Adjust the sliders to calibrate the Recommender & Rating Predictor.</p>
+
+          <!-- Live Radar Chart -->
+          <div class="my-3 flex justify-center">
+            <svg id="dnaRadarSvg" width="210" height="195" viewBox="0 0 220 205"></svg>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+            <button onclick="applyPreset(25, 30, 75, 85, 60)" class="shrink-0 text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700">🔥 Peat & Bitter</button>
+            <button onclick="applyPreset(70, 75, 20, 15, 50)" class="shrink-0 text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700">🍋 Citrus & Sweet</button>
+            <button onclick="applyPreset(35, 65, 55, 20, 90)" class="shrink-0 text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700">🌿 Botanical Fresh</button>
+            <button onclick="applyPreset(65, 20, 40, 60, 35)" class="shrink-0 text-[11px] px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700">🥃 Aged Sipper</button>
+          </div>
+        </div>
+
+        <!-- 5 Sensory Sliders -->
+        <div class="bg-zinc-900/70 border border-zinc-800/90 rounded-2xl p-4 space-y-3.5">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-medium text-zinc-300">🍯 Sweetness (Rich / Caramel)</span>
+              <span id="val-sweet" class="text-amber-400 font-bold">35%</span>
+            </div>
+            <input id="slider-sweet" type="range" min="0" max="100" value="35" oninput="updateDNA()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-medium text-zinc-300">🍋 Acidity (Citrus / Crisp)</span>
+              <span id="val-acid" class="text-amber-400 font-bold">55%</span>
+            </div>
+            <input id="slider-acid" type="range" min="0" max="100" value="55" oninput="updateDNA()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-medium text-zinc-300">🍊 Bitterness (Amaro / Oak Tannin)</span>
+              <span id="val-bitter" class="text-amber-400 font-bold">70%</span>
+            </div>
+            <input id="slider-bitter" type="range" min="0" max="100" value="70" oninput="updateDNA()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-medium text-zinc-300">🔥 Smokiness (Peat / Charred Barrel)</span>
+              <span id="val-smoke" class="text-amber-400 font-bold">75%</span>
+            </div>
+            <input id="slider-smoke" type="range" min="0" max="100" value="75" oninput="updateDNA()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="font-medium text-zinc-300">🌿 Herbal & Botanical (Spice / Anise)</span>
+              <span id="val-herbal" class="text-amber-400 font-bold">65%</span>
+            </div>
+            <input id="slider-herbal" type="range" min="0" max="100" value="65" oninput="updateDNA()" class="w-full" />
+          </div>
+        </div>
+
+        <button onclick="switchTab('discover')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-zinc-950 font-extrabold text-sm shadow-lg shadow-amber-500/20 active:scale-[0.99] transition">
+          Get My Personalized Drinks →
+        </button>
+      </section>
+
+      <!-- ==================== TAB 2: DISCOVER (RECOMMENDER) ==================== -->
+      <section id="tab-discover" class="p-5 space-y-4 hidden">
+        <!-- Category Toggle: All vs Neat Spirits vs Cocktails -->
+        <div class="bg-zinc-900 p-1 rounded-xl border border-zinc-800 grid grid-cols-3 gap-1 text-xs font-semibold">
+          <button id="cat-all" onclick="setCategoryFilter('all')" class="py-2 rounded-lg bg-amber-500 text-zinc-950 transition">All (12)</button>
+          <button id="cat-neat" onclick="setCategoryFilter('neat')" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">🥃 Neat Spirits</button>
+          <button id="cat-cocktail" onclick="setCategoryFilter('cocktail')" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">🍸 Cocktails</button>
+        </div>
+
+        <!-- Base Spirit Filter Bar -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Filter by Spirit / Cocktail Base</span>
+            <span id="activeFilterCount" class="text-[11px] text-amber-400 font-medium">Showing 12 matches</span>
+          </div>
+          <div id="spiritPills" class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+            <button data-spirit="all" onclick="setSpiritFilter('all')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">All Spirits</button>
+            <button data-spirit="Whisky" onclick="setSpiritFilter('Whisky')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">🥃 Whisky</button>
+            <button data-spirit="Rum" onclick="setSpiritFilter('Rum')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">🏴‍☠️ Rum</button>
+            <button data-spirit="Agave" onclick="setSpiritFilter('Agave')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">🌵 Tequila/Mezcal</button>
+            <button data-spirit="Gin" onclick="setSpiritFilter('Gin')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">🌿 Gin</button>
+            <button data-spirit="Vodka" onclick="setSpiritFilter('Vodka')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">❄️ Vodka</button>
+            <button data-spirit="Greek" onclick="setSpiritFilter('Greek')" class="spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800">🍇 Tsipouro</button>
+          </div>
+        </div>
+
+        <!-- Top #1 Hero Recommendation -->
+        <div id="topMatchContainer"></div>
+
+        <!-- Ranked List -->
+        <div class="space-y-2.5" id="recommendationsList"></div>
+      </section>
+
+      <!-- ==================== TAB 3: AI PREDICTOR (PREDICTIVE MODEL) ==================== -->
+      <section id="tab-predictor" class="p-5 space-y-4 hidden">
+        <!-- Drink Selector Dropdown -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-3.5">
+          <label class="text-[11px] uppercase tracking-wider font-bold text-amber-400 block mb-1.5">
+            Select Drink or Spirit to Predict
+          </label>
+          <select id="predictorDrinkSelect" onchange="selectDrinkForPrediction(this.value)" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-500">
+          </select>
+        </div>
+
+        <!-- Main Predictive Score Card -->
+        <div class="bg-gradient-to-br from-amber-500/15 via-zinc-900 to-zinc-900 border border-amber-500/40 rounded-2xl p-4 relative overflow-hidden">
+          <div class="flex items-start justify-between">
+            <div>
+              <span id="predTypeBadge" class="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300">Neat Spirit</span>
+              <h2 id="predDrinkTitle" class="text-base font-extrabold text-white mt-1">Lagavulin 16yo</h2>
+              <p id="predDrinkMeta" class="text-xs text-zinc-400">Base: Whisky • 43% ABV</p>
+            </div>
+            <div class="text-right bg-zinc-950/80 border border-zinc-800 px-3 py-2 rounded-xl">
+              <div class="text-[10px] text-zinc-400 uppercase font-semibold">Predicted Rating</div>
+              <div class="flex items-baseline justify-end gap-1">
+                <span id="predStarScore" class="text-2xl font-black text-amber-400">4.8</span>
+                <span class="text-xs text-zinc-400">/ 5.0 ★</span>
+              </div>
+              <div id="predConfidence" class="text-[10px] text-emerald-400 font-semibold">94% Match</div>
+            </div>
+          </div>
+
+          <p id="predVerdictText" class="mt-3 text-xs text-zinc-300 bg-zinc-950/60 border border-zinc-800/80 rounded-xl p-2.5 leading-relaxed"></p>
+        </div>
+
+        <!-- What-If Serving Simulator -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white">🧊 "What-If" Serving Style Predictor</span>
+            <span id="serveDeltaBadge" class="text-[11px] font-bold text-amber-400">Baseline</span>
+          </div>
+          <p class="text-[11px] text-zinc-400">See how ice dilution or garnish shifts your predicted rating:</p>
+          <div class="grid grid-cols-2 gap-1.5 text-xs">
+            <button onclick="setServeMode('neat')" id="serve-neat" class="serve-btn py-2 px-2.5 rounded-xl border border-amber-500 bg-amber-500/15 text-amber-300 font-semibold text-left">🥃 Neat / Straight</button>
+            <button onclick="setServeMode('rocks')" id="serve-rocks" class="serve-btn py-2 px-2.5 rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-400 font-semibold text-left">🧊 On the Rocks</button>
+            <button onclick="setServeMode('twist')" id="serve-twist" class="serve-btn py-2 px-2.5 rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-400 font-semibold text-left">🍋 + Citrus Twist</button>
+            <button onclick="setServeMode('water')" id="serve-water" class="serve-btn py-2 px-2.5 rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-400 font-semibold text-left">💧 Splash of Water</button>
+          </div>
+        </div>
+
+        <!-- Dual Radar Comparison (User vs Drink) -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-white">Palate vs. Drink Overlap</span>
+            <div class="flex items-center gap-3 text-[10px]">
+              <span class="flex items-center gap-1 text-amber-400"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Your DNA</span>
+              <span class="flex items-center gap-1 text-sky-400"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Drink Profile</span>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <svg id="compareRadarSvg" width="210" height="195" viewBox="0 0 220 205"></svg>
+          </div>
+        </div>
+
+        <!-- Explainable AI Feature Attribution -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2.5">
+          <h3 class="text-xs font-bold text-white">🔍 Why this Prediction? (Feature Impact)</h3>
+          <div id="attributionBars" class="space-y-2"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Tab Navigation -->
+    <nav class="absolute bottom-0 inset-x-0 bg-zinc-950/95 backdrop-blur border-t border-zinc-800 px-6 py-2.5 grid grid-cols-3 gap-2 z-20">
+      <button onclick="switchTab('dna')" id="nav-dna" class="flex flex-col items-center gap-0.5 text-amber-400">
+        <span class="text-base">🧬</span>
+        <span class="text-[11px] font-bold">1. Flavor DNA</span>
+      </button>
+      <button onclick="switchTab('discover')" id="nav-discover" class="flex flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-300">
+        <span class="text-base">🧭</span>
+        <span class="text-[11px] font-bold">2. Discover</span>
+      </button>
+      <button onclick="switchTab('predictor')" id="nav-predictor" class="flex flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-300">
+        <span class="text-base">🔮</span>
+        <span class="text-[11px] font-bold">3. AI Predictor</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script>
+    // 12 Curated Drinks: 6 Neat Spirits + 6 Craft Cocktails
+    const DRINKS = [
+      {
+        id: 'lagavulin16',
+        name: 'Lagavulin 16yo Single Malt',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Whisky',
+        abv: 43,
+        icon: '🥃',
+        notes: 'Intense Islay peat smoke, iodine, rich oak & dried fruit finish.',
+        ingredients: '100% Aged Single Malt Scotch Whisky (16 Years)',
+        vector: { sweet: 30, acid: 10, bitter: 65, smoke: 95, herbal: 45 }
+      },
+      {
+        id: 'zacapa23',
+        name: 'Ron Zacapa 23 Solera',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Rum',
+        abv: 40,
+        icon: '🏴‍☠️',
+        notes: 'Velvety honeyed butterscotch, spiced oak, roasted cacao & vanilla.',
+        ingredients: 'Guatemalan Solera Aged Rum (6 to 23 Years)',
+        vector: { sweet: 85, acid: 15, bitter: 25, smoke: 35, herbal: 30 }
+      },
+      {
+        id: 'donjulio1942',
+        name: 'Don Julio 1942 Añejo',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Agave',
+        abv: 38,
+        icon: '🌵',
+        notes: 'Roasted blue Weber agave, warm vanilla, toasted oak & gentle spice.',
+        ingredients: '100% Blue Weber Agave Añejo Tequila',
+        vector: { sweet: 65, acid: 25, bitter: 20, smoke: 45, herbal: 50 }
+      },
+      {
+        id: 'monkey47',
+        name: 'Monkey 47 Schwarzwald Gin',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Gin',
+        abv: 47,
+        icon: '🌿',
+        notes: '47 hand-picked botanicals, brisk spruce tips, lingonberry & citrus peel.',
+        ingredients: 'Black Forest Dry Gin (47 Botanicals)',
+        vector: { sweet: 20, acid: 60, bitter: 55, smoke: 10, herbal: 95 }
+      },
+      {
+        id: 'belvedere_rye',
+        name: 'Belvedere Single Estate Rye',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Vodka',
+        abv: 40,
+        icon: '❄️',
+        notes: 'Crisp Dankowskie Diamond rye, white pepper, subtle almond & mineral finish.',
+        ingredients: '100% Polish Rye Estate Vodka',
+        vector: { sweet: 20, acid: 35, bitter: 30, smoke: 10, herbal: 35 }
+      },
+      {
+        id: 'dark_cave_tsipouro',
+        name: 'Dark Cave Aged Tsipouro',
+        category: 'neat',
+        categoryLabel: 'Neat Spirit',
+        baseSpirit: 'Greek',
+        abv: 40,
+        icon: '🍇',
+        notes: '5-year oak-aged Greek grape pomace spirit with dried fig, vanilla & spice.',
+        ingredients: 'Aged Thessalian Grape Distillate (French & US Oak)',
+        vector: { sweet: 55, acid: 25, bitter: 45, smoke: 55, herbal: 75 }
+      },
+      {
+        id: 'smoky_mezcalita',
+        name: 'Smoky Rosemary Mezcalita',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Agave',
+        abv: 21,
+        icon: '🍸',
+        notes: 'Artisanal Espadín mezcal, fresh lime, blood orange & torched rosemary.',
+        ingredients: 'Mezcal, Fresh Lime, Blood Orange, Agave Nectar, Smoked Rosemary',
+        vector: { sweet: 40, acid: 80, bitter: 45, smoke: 85, herbal: 70 }
+      },
+      {
+        id: 'negroni_classico',
+        name: 'Negroni Classico',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Gin',
+        abv: 24,
+        icon: '🍊',
+        notes: 'Iconic Italian aperitivo balancing botanical gin, bitter Campari & vermouth.',
+        ingredients: 'London Dry Gin, Campari, Sweet Red Vermouth, Orange Peel',
+        vector: { sweet: 45, acid: 30, bitter: 95, smoke: 15, herbal: 85 }
+      },
+      {
+        id: 'smoked_old_fashioned',
+        name: 'Smoked Maple Old Fashioned',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Whisky',
+        abv: 31,
+        icon: '🥃',
+        notes: 'Small-batch bourbon, hickory wood smoke, Angostura bitters & dark maple.',
+        ingredients: 'Bourbon Whisky, Dark Maple, Angostura Bitters, Hickory Smoke',
+        vector: { sweet: 60, acid: 15, bitter: 70, smoke: 80, herbal: 50 }
+      },
+      {
+        id: 'jungle_bird',
+        name: 'Blackstrap Jungle Bird',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Rum',
+        abv: 19,
+        icon: '🍍',
+        notes: 'Dark Jamaican pot-still rum meets bitter Campari, roasted pineapple & lime.',
+        ingredients: 'Dark Rum, Campari, Fresh Pineapple, Lime Juice, Demerara',
+        vector: { sweet: 65, acid: 70, bitter: 65, smoke: 30, herbal: 45 }
+      },
+      {
+        id: 'espresso_martini',
+        name: 'Velvet Espresso Martini',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Vodka',
+        abv: 20,
+        icon: '☕',
+        notes: 'Rye vodka shaken hard with specialty Arabica espresso, coffee liqueur & sea salt.',
+        ingredients: 'Vodka, Fresh Espresso Shot, Coffee Liqueur, Saline Drop',
+        vector: { sweet: 55, acid: 30, bitter: 75, smoke: 45, herbal: 25 }
+      },
+      {
+        id: 'aegean_spritz',
+        name: 'Aegean Mastiha & Tsipouro Sour',
+        category: 'cocktail',
+        categoryLabel: 'Craft Cocktail',
+        baseSpirit: 'Greek',
+        abv: 18,
+        icon: '🌿',
+        notes: 'Aromatic Greek tsipouro layered with Chios mastiha tears, lemon & crushed basil.',
+        ingredients: 'Tsipouro, Chios Mastiha Liqueur, Fresh Lemon, Basil Leaves',
+        vector: { sweet: 50, acid: 75, bitter: 30, smoke: 15, herbal: 90 }
+      }
+    ];
+
+    let userDNA = { sweet: 35, acid: 55, bitter: 70, smoke: 75, herbal: 65 };
+    let currentCategory = 'all';
+    let currentSpirit = 'all';
+    let selectedDrinkId = 'lagavulin16';
+    let currentServeMode = 'neat';
+
+    // Cosine Similarity + Weighted Euclidean Blend for realistic 0-99% Match
+    function computeMatchScore(user, drinkVec) {
+      const keys = ['sweet', 'acid', 'bitter', 'smoke', 'herbal'];
+      let dot = 0, normU = 0, normD = 0, sqDiff = 0;
+      keys.forEach(k => {
+        const u = user[k];
+        const d = drinkVec[k];
+        dot += u * d;
+        normU += u * u;
+        normD += d * d;
+        sqDiff += Math.pow(u - d, 2);
+      });
+      const cosine = (normU && normD) ? (dot / (Math.sqrt(normU) * Math.sqrt(normD))) : 0;
+      const distSim = 1 - (Math.sqrt(sqDiff) / Math.sqrt(5 * 10000));
+      const combined = (cosine * 0.55 + distSim * 0.45) * 100;
+      return Math.max(38, Math.min(99, Math.round(combined)));
+    }
+
+    function updateDNA() {
+      userDNA.sweet = +document.getElementById('slider-sweet').value;
+      userDNA.acid = +document.getElementById('slider-acid').value;
+      userDNA.bitter = +document.getElementById('slider-bitter').value;
+      userDNA.smoke = +document.getElementById('slider-smoke').value;
+      userDNA.herbal = +document.getElementById('slider-herbal').value;
+
+      document.getElementById('val-sweet').textContent = userDNA.sweet + '%';
+      document.getElementById('val-acid').textContent = userDNA.acid + '%';
+      document.getElementById('val-bitter').textContent = userDNA.bitter + '%';
+      document.getElementById('val-smoke').textContent = userDNA.smoke + '%';
+      document.getElementById('val-herbal').textContent = userDNA.herbal + '%';
+
+      const sortedTraits = [
+        { label: 'Sweet', v: userDNA.sweet },
+        { label: 'Citrus', v: userDNA.acid },
+        { label: 'Bitter', v: userDNA.bitter },
+        { label: 'Smoky', v: userDNA.smoke },
+        { label: 'Botanical', v: userDNA.herbal }
+      ].sort((a, b) => b.v - a.v);
+      document.getElementById('dnaSummaryBadge').textContent = `${sortedTraits[0].label} & ${sortedTraits[1].label}`;
+
+      drawRadar('dnaRadarSvg', userDNA, null);
+      renderRecommendations();
+      renderPrediction();
+    }
+
+    function applyPreset(sweet, acid, bitter, smoke, herbal) {
+      document.getElementById('slider-sweet').value = sweet;
+      document.getElementById('slider-acid').value = acid;
+      document.getElementById('slider-bitter').value = bitter;
+      document.getElementById('slider-smoke').value = smoke;
+      document.getElementById('slider-herbal').value = herbal;
+      updateDNA();
+    }
+
+    function drawRadar(svgId, primaryVec, secondaryVec) {
+      const svg = document.getElementById(svgId);
+      const cx = 110, cy = 105, maxR = 70;
+      const labels = [
+        { key: 'sweet', name: 'Sweet' },
+        { key: 'acid', name: 'Acidity' },
+        { key: 'bitter', name: 'Bitter' },
+        { key: 'smoke', name: 'Smoke' },
+        { key: 'herbal', name: 'Herbal' }
+      ];
+
+      let html = '';
+      [0.33, 0.66, 1].forEach(level => {
+        const pts = labels.map((_, i) => {
+          const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+          return `${cx + Math.cos(angle) * maxR * level},${cy + Math.sin(angle) * maxR * level}`;
+        }).join(' ');
+        html += `<polygon points="${pts}" fill="none" stroke="#27272a" stroke-width="1"/>`;
+      });
+
+      labels.forEach((lab, i) => {
+        const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+        const x2 = cx + Math.cos(angle) * maxR;
+        const y2 = cy + Math.sin(angle) * maxR;
+        const lx = cx + Math.cos(angle) * (maxR + 22);
+        const ly = cy + Math.sin(angle) * (maxR + 16);
+        html += `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#27272a" stroke-width="1"/>`;
+        html += `<text x="${lx}" y="${ly + 3}" text-anchor="middle" fill="#a1a1aa" font-size="10" font-weight="600">${lab.name}</text>`;
+      });
+
+      if (secondaryVec) {
+        const pts2 = labels.map((lab, i) => {
+          const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+          const r = (secondaryVec[lab.key] / 100) * maxR;
+          return `${cx + Math.cos(angle) * r},${cy + Math.sin(angle) * r}`;
+        }).join(' ');
+        html += `<polygon points="${pts2}" fill="rgba(56, 189, 248, 0.2)" stroke="#38bdf8" stroke-width="2"/>`;
+      }
+
+      const pts1 = labels.map((lab, i) => {
+        const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
+        const r = (primaryVec[lab.key] / 100) * maxR;
+        return `${cx + Math.cos(angle) * r},${cy + Math.sin(angle) * r}`;
+      }).join(' ');
+      html += `<polygon points="${pts1}" fill="rgba(245, 158, 11, 0.25)" stroke="#f59e0b" stroke-width="2.2"/>`;
+
+      svg.innerHTML = html;
+    }
+
+    function setCategoryFilter(cat) {
+      currentCategory = cat;
+      ['all', 'neat', 'cocktail'].forEach(c => {
+        const btn = document.getElementById('cat-' + c);
+        if (c === cat) {
+          btn.className = 'py-2 rounded-lg bg-amber-500 text-zinc-950 font-bold transition';
+        } else {
+          btn.className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
+        }
+      });
+      renderRecommendations();
+    }
+
+    function setSpiritFilter(spirit) {
+      currentSpirit = spirit;
+      document.querySelectorAll('.spirit-pill').forEach(btn => {
+        if (btn.dataset.spirit === spirit) {
+          btn.className = 'spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40';
+        } else {
+          btn.className = 'spirit-pill shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800';
+        }
+      });
+      renderRecommendations();
+    }
+
+    function renderRecommendations() {
+      const scored = DRINKS
+        .filter(d => currentCategory === 'all' || d.category === currentCategory)
+        .filter(d => currentSpirit === 'all' || d.baseSpirit === currentSpirit)
+        .map(d => ({ ...d, match: computeMatchScore(userDNA, d.vector) }))
+        .sort((a, b) => b.match - a.match);
+
+      document.getElementById('activeFilterCount').textContent = `Showing ${scored.length} matches`;
+
+      const topContainer = document.getElementById('topMatchContainer');
+      const listContainer = document.getElementById('recommendationsList');
+
+      if (scored.length === 0) {
+        topContainer.innerHTML = `<div class="p-6 text-center text-xs text-zinc-400 bg-zinc-900 rounded-2xl border border-zinc-800">No drinks match this filter combination.</div>`;
+        listContainer.innerHTML = '';
+        return;
+      }
+
+      const top = scored[0];
+      topContainer.innerHTML = `
+        <div onclick="openInPredictor('${top.id}')" class="cursor-pointer bg-gradient-to-br from-amber-500/20 via-zinc-900 to-zinc-900 border border-amber-500/50 rounded-2xl p-4 shadow-lg transition hover:border-amber-400">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-400 text-zinc-950">
+              ★ Top AI Recommendation
+            </span>
+            <span class="text-xs font-black text-emerald-400">${top.match}% Match</span>
+          </div>
+          <div class="flex items-start gap-3 mt-2">
+            <div class="w-12 h-12 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-2xl shrink-0">
+              ${top.icon}
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-1.5">
+                <h3 class="text-sm font-extrabold text-white">${top.name}</h3>
+              </div>
+              <p class="text-[11px] text-amber-300/90 font-medium">${top.categoryLabel} • Base: ${top.baseSpirit} (${top.abv}% ABV)</p>
+              <p class="text-xs text-zinc-400 mt-1">${top.notes}</p>
+              <div class="mt-2.5 text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                <span>Tap to run AI Taste Predictor</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      listContainer.innerHTML = scored.slice(1).map(d => `
+        <div onclick="openInPredictor('${d.id}')" class="cursor-pointer bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 rounded-2xl p-3.5 flex items-center justify-between transition">
+          <div class="flex items-center gap-3 pr-2">
+            <div class="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-xl shrink-0">
+              ${d.icon}
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white">${d.name}</h4>
+              <p class="text-[11px] text-zinc-400">${d.categoryLabel} • ${d.baseSpirit} • ${d.abv}% ABV</p>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-xs font-extrabold ${d.match >= 80 ? 'text-emerald-400' : 'text-amber-400'}">${d.match}%</span>
+            <span class="block text-[10px] text-zinc-500">Predict →</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function populatePredictorSelect() {
+      const sel = document.getElementById('predictorDrinkSelect');
+      sel.innerHTML = DRINKS.map(d =>
+        `<option value="${d.id}">${d.icon} ${d.name} (${d.categoryLabel} - ${d.baseSpirit})</option>`
+      ).join('');
+      sel.value = selectedDrinkId;
+    }
+
+    function openInPredictor(drinkId) {
+      selectedDrinkId = drinkId;
+      document.getElementById('predictorDrinkSelect').value = drinkId;
+      currentServeMode = 'neat';
+      updateServeButtons();
+      switchTab('predictor');
+      renderPrediction();
+    }
+
+    function selectDrinkForPrediction(drinkId) {
+      selectedDrinkId = drinkId;
+      currentServeMode = 'neat';
+      updateServeButtons();
+      renderPrediction();
+    }
+
+    function setServeMode(mode) {
+      currentServeMode = mode;
+      updateServeButtons();
+      renderPrediction();
+    }
+
+    function updateServeButtons() {
+      ['neat', 'rocks', 'twist', 'water'].forEach(m => {
+        const btn = document.getElementById('serve-' + m);
+        if (m === currentServeMode) {
+          btn.className = 'serve-btn py-2 px-2.5 rounded-xl border border-amber-500 bg-amber-500/15 text-amber-300 font-semibold text-left';
+        } else {
+          btn.className = 'serve-btn py-2 px-2.5 rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-400 font-semibold text-left';
+        }
+      });
+    }
+
+    function renderPrediction() {
+      const drink = DRINKS.find(d => d.id === selectedDrinkId) || DRINKS[0];
+      const adjustedVec = { ...drink.vector };
+
+      if (currentServeMode === 'rocks') {
+        adjustedVec.bitter = Math.max(0, adjustedVec.bitter - 12);
+        adjustedVec.smoke = Math.max(0, adjustedVec.smoke - 8);
+      } else if (currentServeMode === 'twist') {
+        adjustedVec.acid = Math.min(100, adjustedVec.acid + 18);
+        adjustedVec.herbal = Math.min(100, adjustedVec.herbal + 8);
+      } else if (currentServeMode === 'water') {
+        adjustedVec.bitter = Math.max(0, adjustedVec.bitter - 10);
+        adjustedVec.sweet = Math.min(100, adjustedVec.sweet + 6);
+      }
+
+      const baseMatch = computeMatchScore(userDNA, drink.vector);
+      const adjustedMatch = computeMatchScore(userDNA, adjustedVec);
+
+      const starScore = Math.max(1.5, Math.min(5.0, (adjustedMatch / 20))).toFixed(1);
+      const baseStar = Math.max(1.5, Math.min(5.0, (baseMatch / 20))).toFixed(1);
+      const delta = (starScore - baseStar).toFixed(1);
+
+      document.getElementById('predTypeBadge').textContent = drink.categoryLabel;
+      document.getElementById('predDrinkTitle').textContent = drink.name;
+      document.getElementById('predDrinkMeta').textContent = `Base: ${drink.baseSpirit} • ${drink.abv}% ABV • ${drink.ingredients}`;
+      document.getElementById('predStarScore').textContent = starScore;
+      document.getElementById('predConfidence').textContent = `${adjustedMatch}% Palate Alignment`;
+
+      const deltaBadge = document.getElementById('serveDeltaBadge');
+      if (currentServeMode === 'neat') {
+        deltaBadge.textContent = 'Standard Serve';
+        deltaBadge.className = 'text-[11px] font-bold text-zinc-400';
+      } else if (delta > 0) {
+        deltaBadge.textContent = `+${delta} ★ Rating Boost!`;
+        deltaBadge.className = 'text-[11px] font-bold text-emerald-400';
+      } else if (delta < 0) {
+        deltaBadge.textContent = `${delta} ★ Rating Drop`;
+        deltaBadge.className = 'text-[11px] font-bold text-rose-400';
+      } else {
+        deltaBadge.textContent = '0.0 ★ Neutral Shift';
+        deltaBadge.className = 'text-[11px] font-bold text-amber-400';
+      }
+
+      document.getElementById('predVerdictText').textContent =
+        adjustedMatch >= 85
+          ? `Strong sensory synergy: ${drink.name} aligns closely with your preference for ${userDNA.smoke > 60 ? 'smoky/oak intensity' : 'balanced botanicals'}.`
+          : `Moderate match: Some sensory dimensions diverge from your ideal profile—try adjusting the serving style below to optimize the fit.`;
+
+      drawRadar('compareRadarSvg', userDNA, adjustedVec);
+
+      const dims = [
+        { key: 'sweet', label: 'Sweetness' },
+        { key: 'acid', label: 'Acidity / Citrus' },
+        { key: 'bitter', label: 'Bitterness' },
+        { key: 'smoke', label: 'Smokiness / Peat' },
+        { key: 'herbal', label: 'Herbal / Botanical' }
+      ];
+
+      document.getElementById('attributionBars').innerHTML = dims.map(dim => {
+        const diff = Math.abs(userDNA[dim.key] - adjustedVec[dim.key]);
+        const alignment = Math.max(0, 100 - diff);
+        const isPositive = diff <= 25;
+        return `
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-300 font-medium">${dim.label} (You: ${userDNA[dim.key]}% vs Drink: ${adjustedVec[dim.key]}%)</span>
+              <span class="font-bold ${isPositive ? 'text-emerald-400' : 'text-amber-400'}">
+                ${isPositive ? '+ Boosts Score' : '− Slight Gap'}
+              </span>
+            </div>
+            <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+              <div class="h-full ${isPositive ? 'bg-emerald-500' : 'bg-amber-500'}" style="width: ${alignment}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function switchTab(tab) {
+      ['dna', 'discover', 'predictor'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('hidden', t !== tab);
+        const navBtn = document.getElementById('nav-' + t);
+        if (t === tab) {
+          navBtn.className = 'flex flex-col items-center gap-0.5 text-amber-400';
+        } else {
+          navBtn.className = 'flex flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-300';
+        }
+      });
+    }
+
+    // Initialize App
+    populatePredictorSelect();
+    updateDNA();
+  </script>
+</body>
+</html>
