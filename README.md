@@ -31,4 +31,4 @@ Existing beverage apps focus either on static recipe catalogs (e.g., Cocktail Fl
 
 ## 🚀 How to Run the Interactive Mockup
 1. Clone or download this repository.
-2. Open `index.html` directly in any modern web browser (Chrome, Safari, Firefox, Edge). No build step or external server is required.
+2. Open `YourDrinksPalate_InteractiveMobileMockup.html` directly in any modern web browser (Chrome, Safari, Firefox, Edge). No build step or external server is required.
